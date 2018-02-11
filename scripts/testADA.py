@@ -59,10 +59,11 @@ def main():
 	if not m_chomp:
 	   raise RuntimeError('no chomp module found!')
 	orcdchomp.orcdchomp.bind(m_chomp)
+	robot = robot.arm
 	m_chomp.computedistancefield(kinbody=robot,cache_filename='sdf_tablemug.dat')
 	
 	try:
-	   t = m_chomp.runchomp(robot=robot.arm, n_iter=100, lambda_=100.0, obs_factor=500.0,
+	   t = m_chomp.runchomp(robot=robot, n_iter=100, lambda_=100.0, obs_factor=500.0,
 	      adofgoal=q_goal, no_collision_exception=True)
 	except RuntimeError as ex:
 	   print ex
