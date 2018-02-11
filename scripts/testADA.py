@@ -5,6 +5,7 @@ import orcdchomp.orcdchomp
 import rospy
 import numpy
 import IPython
+import prpy
 
 def main():
 	rospy.init_node('planning', anonymous = True)
@@ -17,6 +18,9 @@ def main():
 	table = env.ReadKinBodyXMLFile('models/furniture/rolly-table.iv')
 	env.Add(table)
 	table.SetTransform([0.70711,0.70711,0,0,0,0,0])
+
+	#IPython.embed()
+	robot.SetActiveManipulator('Mico')
 
 	mug = env.ReadKinBodyXMLFile('models/objects/mug3.iv')
 	env.Add(mug)
@@ -59,8 +63,7 @@ def main():
 	if not m_chomp:
 	   raise RuntimeError('no chomp module found!')
 	orcdchomp.orcdchomp.bind(m_chomp)
-	robot = robot.arm
-	m_chomp.computedistancefield(kinbody=robot,cache_filename='sdf_tablemug.dat')
+	m_chomp.computedistancefield(kinbody=robot.arm,cache_filename='sdf_tablemug.dat')
 	
 	try:
 	   t = m_chomp.runchomp(robot=robot, n_iter=100, lambda_=100.0, obs_factor=500.0,
