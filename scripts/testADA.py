@@ -26,6 +26,7 @@ def main():
 	T_robot_w[1][3] += 0.4
 	T_robot_w[2][3] += 0.71
 	robot.SetTransform(T_robot_w)
+	robot.SetActiveDOFs(numpy.array([0, 1, 2, 3, 4, 5]))
 	
 	T_mug_world = mug.GetTransform()
 
@@ -59,7 +60,6 @@ def main():
 	if not m_chomp:
 	   raise RuntimeError('no chomp module found!')
 	orcdchomp.orcdchomp.bind(m_chomp)
-	robot = robot.arm
 	m_chomp.computedistancefield(kinbody=robot,cache_filename='sdf_tablemug.dat')
 	
 	try:
