@@ -59,12 +59,18 @@ def main():
 		   ikmodel.autogenerate()
 	except: 
 		print "I am not able to plan to goal"
+	
+	"""
+	import prpy.planning.chomp as ch
+	chimp = ch.CHOMPPlanner()
+	plan = chimp.PlanToConfiguration(robot, q_goal)
 
-
+	"""
 	if not m_chomp:
 	   raise RuntimeError('no chomp module found!')
 	orcdchomp.orcdchomp.bind(m_chomp)
 	m_chomp.computedistancefield(kinbody=robot,cache_filename='sdf_tablemug.dat')
+	IPython.embed()
 	
 	try:
 	   t = m_chomp.runchomp(robot=robot, n_iter=100, lambda_=100.0, obs_factor=500.0,
